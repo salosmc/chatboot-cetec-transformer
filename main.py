@@ -16,6 +16,8 @@ from fastapi.encoders import jsonable_encoder
 from transformers import pipeline
 from fastapi.middleware.cors import CORSMiddleware
 
+# Importamos configuracion de base de datos y schemas
+from config.db import collection_name
 
 app = FastAPI()
 origins = ["*"]
@@ -44,23 +46,35 @@ async def geeter(name,request: Request):
     generated_ids = model.generate(**batch)
     translated = tokenizer.batch_decode(generated_ids, skip_special_tokens=True)[0]
 
+    # --------------------- Plan de accion
+    # 1 Creo que deberia buscar un array de clasificaciones de la base de datos para setear "candidate_labels"
+    # 2 Luego la pregunta me permite ver que tipo de clasificacion es? se setea en "data"
+    # 3 
+    # -------------------------
+
     #First question clasification
     from transformers import pipeline 
     classifier = pipeline("zero-shot-classification", model="facebook/bart-large-mnli")
     candidate_labels = ['kinematics', 'dynamics', 'rigid body kinematics', 'rigid body dinamics', 'work and enegy']
     data = classifier(translated, candidate_labels)['labels'][0]
+    print(" ES ACA "+data)
 
     #ToDo find the text in the mongo database (the Salomon App) using the label data from the step before this
     tokenizer = DistilBertTokenizer.from_pretrained("distilbert-base-cased-distilled-squad")
     model = TFDistilBertForQuestionAnswering.from_pretrained("distilbert-base-cased-distilled-squad")
     question = translated
-    text = '''
-    It is called rectilinear movement, one whose trajectory is a straight line.
-    On the line we place an origin O, where an observer will be who will measure the position of the mobile x at instant t. The positions will be positive if the mobile is to the right of the origin and negative if it is to the left of the origin.
-    The position x of the mobile can be related to the time t by means of a function x=f(t).
-    Suppose now that at time t, the mobile is in position x, later, at time t', the mobile will be in position x'. We say that the mobile has moved Δx=x'-x in the time interval Δt=t'-t, measured from instant t to instant t'.
-    Velocity at an instant is defined as the derivative of position with respect to time.
-    '''
+
+    #buscamos en la base de datos por "title"
+    text = collection_name.find_one({"title": data})["description"]
+
+    #text = '''
+    #    It is called rectilinear movement, one whose trajectory is a straight line.
+    #    On the line we place an origin O, where an observer will be who will measure the position of the mobile x at instant t. The positions will be positive if the mobile is to the right of the origin and negative if it is to the left of the origin.
+    #    The position x of the mobile can be related to the time t by means of a function x=f(t).
+    #    Suppose now that at time t, the mobile is in position x, later, at time t', the mobile will be in position x'. We say that the mobile has moved Δx=x'-x in the time interval Δt=t'-t, measured from instant t to instant t'.
+    #    Velocity at an instant is defined as the derivative of position with respect to time.
+    #    '''
+    
     inputs = tokenizer(question, text, return_tensors="tf")
     outputs = model(**inputs)
     answer_start_index = int(tf.math.argmax(outputs.start_logits, axis=-1)[0])
