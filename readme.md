@@ -7,7 +7,21 @@ https://www.youtube.com/watch?v=MXwcUrI-iss
 
 ### Creación de base de datos
 
+- ![creacion de bd en mongo](/img/crearDbMongoAtlas.png)
+
+- ![creacion de db en mongo2](/img/crearDbMongoAtlas2.png)
+
+- ![creacion de dn en mongo3](/img/crearDbMongoAtlas3.png)
+
 ### Configuracion para conectarse a DB
+
+- ![configuracion para conectarse a mongo](/img/configConectMongoDbAtlas.png)
+
+- ![configuracion para conectarse a mongo2](/img/configConectMongoDbAtlas2.png)
+
+- ![configuracion para conectarse a mongo3](/img/configConectMongoDbAtlas3.png)
+
+- ![configuracion para conectarse a mongo4](/img/configConectDbMongoAtlas4.png)
 
 ### Creacion de ambiente python venv
 
