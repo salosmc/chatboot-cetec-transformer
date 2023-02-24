@@ -59,7 +59,7 @@ async def geeter(name,request: Request):
     # consultamos los titulos en la bd
     # queda pendiente ver como traer solo los titulos
     candidate_labels = []
-    temas_array = collection_name.find()
+    temas_array = collection_name.find({},{"description":0})
 
     for tema in temas_array:
         candidate_labels.append(tema["title"])
