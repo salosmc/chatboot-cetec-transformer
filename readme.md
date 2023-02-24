@@ -1,9 +1,8 @@
-### Fuente
-https://www.youtube.com/watch?v=MXwcUrI-iss
-
 # Creacion de api con fastApi en python conectado a una base de datos MongoDB Atlas
 
+
 ## Requisitos
+
 
 ### Base de datos Mongo Atlas
 
@@ -28,25 +27,32 @@ https://www.youtube.com/watch?v=MXwcUrI-iss
 
 ### Creacion de ambiente python venv
 
+
 #### Creacion de ambiente
 
 - Ejecutar:
 
-      $ python3 -m venv venv
+      python3 -m venv venv
+  
+  Se necesita tener instalado
+  
+      sudo apt install python3.10-venv
 
 - Resultado:
 
     ![creacion de repo venv](/img/creacionAmbientePython.png)
 
+
 #### Pararse en el ambiente
 
 - Ejecutar : 
 
-      $ source venv/bin/activate
+      source venv/bin/activate
 
 - Resultado: 
     
-    (venv) salo@salo-UX32VD:~/fastApiMongodb$ 
+    (venv) salo@salo-UX32VD:~/fastApiMongodb$
+
 
 ### Instalacion de dependencias
 
@@ -81,10 +87,12 @@ Instalamos las dependencias necesarias: fastapi, uvicorn, pymongo.
 #### Otras dependencias
 
 - Para las variables de entorno
-    pip install python-dotenv
+
+      pip install python-dotenv
     
 - Instalar si lo pide (no recuerdo exactamente que hace)
-    pip install sentencepiece
+
+      pip install sentencepiece
 
 ## Proyecto
 
@@ -106,7 +114,7 @@ Instalamos las dependencias necesarias: fastapi, uvicorn, pymongo.
 
 - Swagger:
 
-   ![swagger api](/img/swaggerApi.png)
+  ![swagger api](/img/swaggerApi.png)
 
 - Caso de prueba:
 
@@ -125,4 +133,3 @@ Instalamos las dependencias necesarias: fastapi, uvicorn, pymongo.
   https://www.youtube.com/watch?v=MXwcUrI-iss
 
   https://www.youtube.com/watch?v=4e2VW3Nu-64
-
