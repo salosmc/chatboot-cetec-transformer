@@ -55,7 +55,20 @@ async def geeter(name,request: Request):
     #First question clasification
     from transformers import pipeline 
     classifier = pipeline("zero-shot-classification", model="facebook/bart-large-mnli")
-    candidate_labels = ['kinematics', 'dynamics', 'rigid body kinematics', 'rigid body dinamics', 'work and enegy']
+
+    # consultamos los titulos en la bd
+    # queda pendiente ver como traer solo los titulos
+    candidate_labels = []
+    temas_array = collection_name.find()
+
+    for tema in temas_array:
+        candidate_labels.append(tema["title"])
+
+    print("array de titulos")
+    print(candidate_labels)
+
+    #candidate_labels = ['kinematics', 'dynamics', 'rigid body kinematics', 'rigid body dinamics', 'work and enegy']
+    
     data = classifier(translated, candidate_labels)['labels'][0]
     print(" ES ACA "+data)
 
